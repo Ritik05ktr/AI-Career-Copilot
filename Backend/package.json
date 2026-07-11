@@ -1,16 +1,11 @@
 {
   "name": "yt-genai",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "start": "node server.js",
     "postinstall": "npx puppeteer browsers install chrome"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "@google/genai": "^2.10.0",
     "@puppeteer/browsers": "^3.0.6",
