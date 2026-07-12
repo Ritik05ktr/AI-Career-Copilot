@@ -8,16 +8,14 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://ai-career-copilot-1-krna.onrender.com",
+    origin: process.env.FRONTEND_URL,
     credentials: true,
   }),
 );
 
-/* require all the routes here */
 const authRouter = require("./routes/auth.routes");
 const interviewRouter = require("./routes/interview.routes");
 
-/* using all the routes here */
 app.use("/api/auth", authRouter);
 app.use("/api/interview", interviewRouter);
 
