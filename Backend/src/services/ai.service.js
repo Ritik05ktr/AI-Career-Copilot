@@ -149,14 +149,18 @@ Before returning final JSON, verify:
 }
 
 async function generatePdfFromHtml(htmlContent) {
-  console.log("Puppeteer executable:", puppeteer.executablePath());
+  const executablePath = await puppeteer.executablePath();
+
+  console.log("Puppeteer executable:", executablePath);
+
   const browser = await puppeteer.launch({
-    headless: true,
-    executablePath: puppeteer.executablePath(), // <-- Add this
+    headless: "new",
+    executablePath,
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
       "--disable-dev-shm-usage",
+      "--disable-gpu",
     ],
   });
 
