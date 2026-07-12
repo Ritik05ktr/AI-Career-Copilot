@@ -8,7 +8,7 @@
   "dependencies": {
     "@google/genai": "^2.10.0",
     "@puppeteer/browsers": "^3.0.6",
-    "@sparticuz/chromium": "^149.0.0",
+    "@sparticuz/chromium": "^138.0.2",
     "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
@@ -18,7 +18,7 @@
     "mongoose": "^9.6.2",
     "multer": "^2.2.0",
     "pdf-parse": "^2.4.5",
-    "puppeteer-core": "^25.3.0",
+    "puppeteer-core": "^24.15.0",
     "zod": "^4.4.3",
     "zod-to-json-schema": "^3.25.2"
   }
