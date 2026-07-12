@@ -165,11 +165,14 @@ async function generatePdfFromHtml(htmlContent) {
 
   const pdfBuffer = await page.pdf({
     format: "A4",
+    printBackground: true,
+    preferCSSPageSize: true,
+    scale: 0.9,
     margin: {
-      top: "20mm",
-      bottom: "20mm",
-      left: "15mm",
-      right: "15mm",
+      top: "10mm",
+      bottom: "10mm",
+      left: "10mm",
+      right: "10mm",
     },
   });
 
@@ -186,26 +189,246 @@ async function generateResumePdf({ resume, selfDescription, jobDescription }) {
   });
 
   const prompt = `
-Generate a professional ATS friendly resume.
+You are a professional ATS Resume Writer and Senior Technical Recruiter.
 
-Resume:
+Your task is to create a modern, clean, ATS-friendly resume in HTML format.
+
+Candidate Resume:
 ${resume}
 
-Self Description:
+Candidate Self Description:
 ${selfDescription}
 
-Job Description:
+Target Job Description:
 ${jobDescription}
 
-Return JSON with only one field:
-html
+Return ONLY valid JSON in the following format:
 
-The resume should:
-- Be 1-2 pages
-- Look professional
-- Match the job description
-- Highlight relevant skills
-- Not look AI generated
+{
+  "html": "Complete HTML resume"
+}
+
+STRICT RULES:
+
+- Return ONLY JSON.
+- Do not include markdown.
+- Do not include explanations.
+- Do not include code fences.
+- The JSON must contain ONLY one field:
+  - html
+
+==========================
+RESUME REQUIREMENTS
+==========================
+
+The resume MUST be ATS-friendly.
+
+The resume MUST fit within ONE page whenever possible.
+
+The resume MUST NEVER exceed TWO pages.
+
+Assume the candidate is a Fresher unless the resume clearly shows professional experience.
+
+Keep the resume concise.
+
+Maximum total words: 500-550 words.
+
+Use short bullet points.
+
+Avoid long paragraphs.
+
+Use compact spacing.
+
+Do NOT repeat technologies.
+
+Do NOT repeat skills.
+
+Do NOT add fake information.
+
+Only include information supported by the provided Resume and Self Description.
+
+IMPORTANT:
+
+- Remove duplicate skills.
+- Remove repetitive project descriptions.
+- Limit every project to exactly 3 bullet points.
+- Every bullet must contain at most 15 words.
+- Do not exceed 550 words in total.
+- If the content exceeds one page, shorten summaries and project descriptions instead of creating more pages.
+
+==========================
+SECTION ORDER
+==========================
+
+1. Name
+2. Contact Information
+3. Professional Summary
+4. Skills
+5. Projects
+6. Experience (if available)
+7. Education
+8. Certifications (only if available)
+
+Do NOT create unnecessary sections.
+
+==========================
+SUMMARY
+==========================
+
+Maximum 3 lines.
+
+Highlight:
+- Primary Tech Stack
+- Career Goal
+- Strongest Skills
+
+==========================
+SKILLS
+==========================
+
+Maximum 12-15 skills.
+
+Group similar skills.
+
+Example:
+
+Languages:
+Java, JavaScript
+
+Frontend:
+HTML, CSS, React
+
+Backend:
+Node.js, Express.js
+
+Database:
+MongoDB, MySQL
+
+Tools:
+Git, GitHub
+
+==========================
+PROJECTS
+==========================
+
+Include ONLY the BEST 2 projects.
+
+For each project include:
+
+Project Name
+
+2-3 concise bullet points describing impact and implementation.
+
+Technologies Used
+
+Each bullet should be under 18 words.
+
+Do NOT write long descriptions.
+
+==========================
+EXPERIENCE
+==========================
+
+If experience exists:
+
+Maximum 4 bullet points.
+
+Each bullet under 18 words.
+
+Focus on achievements instead of responsibilities.
+
+If no experience exists, omit this section entirely.
+
+==========================
+EDUCATION
+==========================
+
+Keep compact.
+
+Maximum 2 lines.
+
+==========================
+CERTIFICATIONS
+==========================
+
+Only include if provided.
+
+==========================
+HTML REQUIREMENTS
+==========================
+
+Generate a COMPLETE HTML document.
+
+Use inline CSS only.
+
+Use clean ATS-friendly formatting.
+
+Use the following CSS style:
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+font-size:11px;
+line-height:1.25;
+margin:18px;
+color:#222;
+}
+
+h1{
+font-size:24px;
+margin:0 0 6px 0;
+}
+
+h2{
+font-size:15px;
+margin:8px 0 4px 0;
+padding-bottom:2px;
+border-bottom:1px solid #ccc;
+}
+
+p{
+margin:2px 0;
+}
+
+ul{
+margin:4px 0;
+padding-left:18px;
+}
+
+li{
+margin:2px 0;
+}
+
+.section{
+margin-bottom:10px;
+}
+
+Do NOT use tables.
+
+Do NOT use multiple columns.
+
+Do NOT use images.
+
+Do NOT use icons.
+
+Do NOT use SVG.
+
+Do NOT use JavaScript.
+
+Do NOT use external CSS.
+
+Do NOT use external fonts.
+
+Keep the design simple, clean, professional, printable and ATS compatible.
+
+Before returning the JSON verify:
+
+- HTML is valid.
+- Resume is concise.
+- Resume fits within ONE page whenever possible.
+- Resume never exceeds TWO pages.
+- No repeated content.
+- No unnecessary whitespace.
+- No fake information.
 `;
 
   const response = await ai.models.generateContent({
