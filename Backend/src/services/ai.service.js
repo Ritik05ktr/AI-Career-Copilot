@@ -151,10 +151,10 @@ Before returning final JSON, verify:
 
 async function generatePdfFromHtml(htmlContent) {
   const browser = await puppeteer.launch({
-    executablePath: await chromium.executablePath(),
-    headless: true,
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath(),
+    headless: true,
   });
 
   try {
