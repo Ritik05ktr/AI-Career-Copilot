@@ -63,19 +63,20 @@ PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
 GEMINI_API_KEY=your_gemini_api_key
-Install dependencies and start the server:
 
-Bash
+
+Install dependencies and start the server:
 npm install
 npm start
+
+
 Frontend Setup:
-
 Navigate to the client directory:
-
-Bash
 cd client
 npm install
 npm run dev
+
+
 🔒 Security & Optimization Highlights
 API Security: All endpoints are protected with structured JWT verification middleware to block unauthorized requests.
 
