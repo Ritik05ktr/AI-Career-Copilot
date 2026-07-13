@@ -52,10 +52,8 @@ AI Career Copilot is a full-stack MERN application integrated with Google Gemini
    git clone [https://github.com/Ritik05ktr/AI-Career-Copilot.git](https://github.com/Ritik05ktr/AI-Career-Copilot.git)
    cd AI-Career-Copilot
 
-   Backend Setup:
-
+2.Backend Setup:
 Navigate to the server directory (if separate) or open the root:
-
 Create a .env file and add the following:
 
 Code snippet
@@ -70,7 +68,7 @@ npm install
 npm start
 
 
-Frontend Setup:
+3.Frontend Setup:
 Navigate to the client directory:
 cd client
 npm install
